@@ -32,7 +32,7 @@ RsTypeAdaptIntraSub::RsTypeAdaptIntraSub(rclcpp::NodeOptions options)
       RCLCPP_INFO(this->get_logger(), "Image received");
     };
 
-  sub_ = create_subscription<rs_type_adapt_example::ROSCvMatContainer>("camera/color/image_raw", 10, callback);
+  sub_ = create_subscription<rs_type_adapt_example::ROSCvMatContainer>("color/image_raw", 10, callback);
 }
 
 RsTypeAdaptIntraSub::~RsTypeAdaptIntraSub(){}
