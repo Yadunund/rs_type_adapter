@@ -22,7 +22,7 @@
 namespace rs_type_adapt_example
 {
 
-ImageSubTypeAdaptIntraNode::ImageSubTypeAdaptIntraNode(rclcpp::NodeOptions options)
+RsTypeAdaptIntraSub::RsTypeAdaptIntraSub(rclcpp::NodeOptions options)
 : rclcpp::Node("image_sub_type_adapt_intra", options.use_intra_process_comms(true))
 {
   auto callback =
@@ -35,9 +35,9 @@ ImageSubTypeAdaptIntraNode::ImageSubTypeAdaptIntraNode(rclcpp::NodeOptions optio
   sub_ = create_subscription<rs_type_adapt_example::ROSCvMatContainer>("camera/color/image_raw", 10, callback);
 }
 
-ImageSubTypeAdaptIntraNode::~ImageSubTypeAdaptIntraNode(){}
+RsTypeAdaptIntraSub::~RsTypeAdaptIntraSub(){}
 
 }  // namespace rs_type_adapt_example
 
-RCLCPP_COMPONENTS_REGISTER_NODE(rs_type_adapt_example::ImageSubTypeAdaptIntraNode)
+RCLCPP_COMPONENTS_REGISTER_NODE(rs_type_adapt_example::RsTypeAdaptIntraSub)
 

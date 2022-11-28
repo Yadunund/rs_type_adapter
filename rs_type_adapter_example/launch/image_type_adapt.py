@@ -46,7 +46,7 @@ def set_configurable_parameters(parameters):
 def generate_launch_description():
     return LaunchDescription(declare_configurable_parameters(configurable_parameters) + [
         ComposableNodeContainer(
-            name='my_container',
+            name='rs_type_adapt_example_container',
             namespace='',
             package='rclcpp_components',
             executable='component_container',

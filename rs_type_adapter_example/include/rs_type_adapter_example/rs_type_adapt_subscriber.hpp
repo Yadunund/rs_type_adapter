@@ -28,13 +28,13 @@ RCLCPP_USING_CUSTOM_TYPE_AS_ROS_MESSAGE_TYPE(
 namespace rs_type_adapt_example
 {
 
-class ImageSubTypeAdaptIntraNode : public rclcpp::Node
+class RsTypeAdaptIntraSub : public rclcpp::Node
 {
 public:
   TYPE_ADAPT_EXAMPLE_PUBLIC
-  explicit ImageSubTypeAdaptIntraNode(rclcpp::NodeOptions options);
+  explicit RsTypeAdaptIntraSub(rclcpp::NodeOptions options);
 
-  virtual ~ImageSubTypeAdaptIntraNode();
+  virtual ~RsTypeAdaptIntraSub();
 
 private:
   rclcpp::Subscription<rs_type_adapt_example::ROSCvMatContainer>::SharedPtr sub_;
