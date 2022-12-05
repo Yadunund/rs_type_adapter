@@ -12,34 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef TYPE_ADAPT_EXAMPLE__IMAGE_SUB_TYPE_ADAPT_INTRA_NODE_HPP_
-#define TYPE_ADAPT_EXAMPLE__IMAGE_SUB_TYPE_ADAPT_INTRA_NODE_HPP_
+#include "rs_type_adapter_example/rs_subscriber.hpp"
 
 #include "rclcpp/rclcpp.hpp"
+#include "rclcpp_components/register_node_macro.hpp"
 #include "sensor_msgs/msg/image.hpp"
-
-#include <cv_mat_sensor_msgs_image_type_adapter.hpp>
-#include <visibility_control.h>
-
-RCLCPP_USING_CUSTOM_TYPE_AS_ROS_MESSAGE_TYPE(
-  cv_type_adapt::ROSCvMatContainer,
-  sensor_msgs::msg::Image);
 
 namespace rs_type_adapt_example
 {
 
-class RsTypeAdaptIntraSub : public rclcpp::Node
+RsIntraSub::RsIntraSub(rclcpp::NodeOptions options)
+: rclcpp::Node("image_sub_intra", options.use_intra_process_comms(true))
 {
-public:
-  TYPE_ADAPT_EXAMPLE_PUBLIC
-  explicit RsTypeAdaptIntraSub(rclcpp::NodeOptions options);
+  auto callback =
+    [this](std::unique_ptr<sensor_msgs::msg::Image> msg) -> void
+    {
+      (void)msg;
+      RCLCPP_INFO(this->get_logger(), "Image received");
+    };
 
-  virtual ~RsTypeAdaptIntraSub();
+  sub_ = create_subscription<sensor_msgs::msg::Image>("color/image_raw", 10, callback);
+}
 
-private:
-  rclcpp::Subscription<cv_type_adapt::ROSCvMatContainer>::SharedPtr sub_;
-};
+RsIntraSub::~RsIntraSub(){}
 
-}  // namespace type_adapt_example
+}  // namespace rs_type_adapt_example
 
-#endif  // TYPE_ADAPT_EXAMPLE__IMAGE_SUB_TYPE_ADAPT_INTRA_NODE_HPP_
+RCLCPP_COMPONENTS_REGISTER_NODE(rs_type_adapt_example::RsIntraSub)
+

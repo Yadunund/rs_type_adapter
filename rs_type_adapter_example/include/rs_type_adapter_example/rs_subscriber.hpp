@@ -15,29 +15,24 @@
 #ifndef TYPE_ADAPT_EXAMPLE__IMAGE_SUB_TYPE_ADAPT_INTRA_NODE_HPP_
 #define TYPE_ADAPT_EXAMPLE__IMAGE_SUB_TYPE_ADAPT_INTRA_NODE_HPP_
 
-#include "rclcpp/rclcpp.hpp"
-#include "sensor_msgs/msg/image.hpp"
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/image.hpp>
 
-#include <cv_mat_sensor_msgs_image_type_adapter.hpp>
 #include <visibility_control.h>
-
-RCLCPP_USING_CUSTOM_TYPE_AS_ROS_MESSAGE_TYPE(
-  cv_type_adapt::ROSCvMatContainer,
-  sensor_msgs::msg::Image);
 
 namespace rs_type_adapt_example
 {
 
-class RsTypeAdaptIntraSub : public rclcpp::Node
+class RsIntraSub : public rclcpp::Node
 {
 public:
   TYPE_ADAPT_EXAMPLE_PUBLIC
-  explicit RsTypeAdaptIntraSub(rclcpp::NodeOptions options);
+  explicit RsIntraSub(rclcpp::NodeOptions options);
 
-  virtual ~RsTypeAdaptIntraSub();
+  virtual ~RsIntraSub();
 
 private:
-  rclcpp::Subscription<cv_type_adapt::ROSCvMatContainer>::SharedPtr sub_;
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub_;
 };
 
 }  // namespace type_adapt_example

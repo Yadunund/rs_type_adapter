@@ -8,7 +8,7 @@ from launch_ros.descriptions import ComposableNode
 
 '''
 Launch realsense2_camera node & a simple subscriber both with type adaptation, 
-Run syntax: ros2 launch rs_type_adapter_example image_type_adapt.py
+Run syntax: ros2 launch rs_type_adapter_example image_no_type_adapt.py
 '''
 
 # Make sure required packages can be found
@@ -61,8 +61,8 @@ def generate_launch_description():
                 ) ,
                 ComposableNode(
                     package='rs_type_adapter_example',
-                    plugin='rs_type_adapt_example::RsTypeAdaptIntraSub',
-                    name='image_sub_type_adapt',
+                    plugin='rs_type_adapt_example::RsIntraSub',
+                    name='image_sub',
                     extra_arguments=[{'use_intra_process_comms': True}],
                 ),
                 ],
