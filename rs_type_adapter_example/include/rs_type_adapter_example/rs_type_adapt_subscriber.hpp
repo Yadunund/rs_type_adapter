@@ -18,11 +18,11 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
 
-#include <cv_mat_sensor_msgs_image_type_adapter.hpp>
-#include <visibility_control.h>
+#include <cv_bridge/cv_mat_sensor_msgs_image_type_adapter.hpp>
+#include <cv_bridge/visibility_control.h>
 
 RCLCPP_USING_CUSTOM_TYPE_AS_ROS_MESSAGE_TYPE(
-  cv_type_adapt::ROSCvMatContainer,
+  cv_bridge::ROSCvMatContainer,
   sensor_msgs::msg::Image);
 
 namespace rs_type_adapt_example
@@ -31,13 +31,13 @@ namespace rs_type_adapt_example
 class RsTypeAdaptIntraSub : public rclcpp::Node
 {
 public:
-  TYPE_ADAPT_EXAMPLE_PUBLIC
+  CV_BRIDGE_PUBLIC
   explicit RsTypeAdaptIntraSub(rclcpp::NodeOptions options);
 
   virtual ~RsTypeAdaptIntraSub();
 
 private:
-  rclcpp::Subscription<cv_type_adapt::ROSCvMatContainer>::SharedPtr sub_;
+  rclcpp::Subscription<cv_bridge::ROSCvMatContainer>::SharedPtr sub_;
 };
 
 }  // namespace type_adapt_example

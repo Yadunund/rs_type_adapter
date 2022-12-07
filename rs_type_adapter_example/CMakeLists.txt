@@ -9,6 +9,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_ros REQUIRED)
+find_package(cv_bridge REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -31,11 +32,9 @@ target_link_libraries(rs_type_adapt_subscriber
   ${OpenCV_LIBS}
 )
 ament_target_dependencies(rs_type_adapt_subscriber
-  realsense2_camera
+  cv_bridge
 )
-# Causes the visibility macros to use dllexport rather than dllimport,
-# which is appropriate when building the dll but not consuming it.
-target_compile_definitions(rs_type_adapt_subscriber PRIVATE "TYPE_ADAPT_EXAMPLE_BUILDING_LIBRARY")
+
 rclcpp_components_register_node(rs_type_adapt_subscriber
   PLUGIN "rs_type_adapt_example::RsTypeAdaptIntraSub"
   EXECUTABLE image_sub_type_adapt_intra
@@ -56,11 +55,9 @@ target_link_libraries(rs_subscriber
   ${OpenCV_LIBS}
 )
 ament_target_dependencies(rs_subscriber
-  realsense2_camera
+  cv_bridge
 )
-# Causes the visibility macros to use dllexport rather than dllimport,
-# which is appropriate when building the dll but not consuming it.
-target_compile_definitions(rs_subscriber PRIVATE "TYPE_ADAPT_EXAMPLE_BUILDING_LIBRARY")
+
 rclcpp_components_register_node(rs_subscriber
   PLUGIN "rs_type_adapt_example::RsIntraSub"
   EXECUTABLE image_sub_intra

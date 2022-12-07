@@ -18,7 +18,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/image.hpp>
 
-#include <visibility_control.h>
+#include <cv_bridge/visibility_control.h>
 
 namespace rs_type_adapt_example
 {
@@ -26,7 +26,7 @@ namespace rs_type_adapt_example
 class RsIntraSub : public rclcpp::Node
 {
 public:
-  TYPE_ADAPT_EXAMPLE_PUBLIC
+  CV_BRIDGE_PUBLIC
   explicit RsIntraSub(rclcpp::NodeOptions options);
 
   virtual ~RsIntraSub();
