@@ -7,7 +7,7 @@ from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
 
 '''
-Launch realsense2_camera node & a simple subscriber both with type adaptation, 
+Launch realsense2_camera node & multiple simple subscribers all with type adaptation, 
 Run syntax: ros2 launch rs_type_adapter_example image_multiple_type_adapt.py
 '''
 

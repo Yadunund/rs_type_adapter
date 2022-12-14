@@ -29,7 +29,6 @@ RsTypeAdaptIntraSub::RsTypeAdaptIntraSub(rclcpp::NodeOptions options)
   auto callback =
     [this](std::shared_ptr<const cv_bridge::ROSCvMatContainer> msg) -> void
     {
-      (void)msg;
       RCLCPP_INFO(this->get_logger(), "Received image with address: 0x%" PRIXPTR "\n", reinterpret_cast<std::uintptr_t>(msg.get()));
     };
 
