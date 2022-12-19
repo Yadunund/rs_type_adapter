@@ -82,8 +82,7 @@ def generate_launch_description():
             namespace=LaunchConfiguration("camera_name"),
             name=LaunchConfiguration("camera_name"),
             executable='realsense2_camera_node',
-            parameters=[set_configurable_parameters(configurable_parameters)
-                        ],
+            parameters=[set_configurable_parameters(configurable_parameters)],
             output='screen',
             arguments=['--ros-args', '--log-level', LaunchConfiguration('log_level')],
             emulate_tty=True,

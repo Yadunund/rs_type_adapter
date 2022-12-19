@@ -22,7 +22,7 @@ namespace rs_type_adapt_example
 {
 
 RsIntraSub::RsIntraSub(rclcpp::NodeOptions options)
-: rclcpp::Node("image_sub_intra", options.use_intra_process_comms(true))
+: rclcpp::Node("image_sub_intra")
 {
   auto callback =
     [this](std::unique_ptr<sensor_msgs::msg::Image> msg) -> void
@@ -30,8 +30,11 @@ RsIntraSub::RsIntraSub(rclcpp::NodeOptions options)
       (void)msg;
       RCLCPP_INFO(this->get_logger(), "Image received");
     };
-
-  sub_ = create_subscription<sensor_msgs::msg::Image>("color/image_raw", 10, callback);
+  if (options.use_intra_process_comms()){
+    sub_ = create_subscription<sensor_msgs::msg::Image>("color/image_raw", 10, callback);
+  } else {
+    sub_ = create_subscription<sensor_msgs::msg::Image>("camera/color/image_raw", 10, callback);
+  }
 }
 
 RsIntraSub::~RsIntraSub(){}
