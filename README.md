@@ -46,7 +46,7 @@ ros2 launch rs_type_adapter_example image_no_type_adapt.py
 
 Indeed, by running the processes like this, we recognize a bunch of savings; the same data takes only ~28% CPU to both send and receive.
 
-![image](https://user-images.githubusercontent.com/51831786/208497363-179da5f1-6dec-448f-a3ed-c54712015661.png)
+![image](https://user-images.githubusercontent.com/51831786/212577804-6d025e62-083f-433e-9924-18ebf63028d0.png)
 
 
 ## Example 3: Single process composed, using type adaptation, intra-process enabled
@@ -63,7 +63,7 @@ When we run this example, it takes ~19% CPU to send and receive the data within 
 
 We can see that the improvement is not something that relevant between the use of type adaptation and just using the intra-process communication. However, let's take a look at what happens when there is not just one subscriber but multiple.
 
-![image](https://user-images.githubusercontent.com/51831786/208497546-551307c7-344f-4358-84dd-ebc034349794.png)
+![image](https://user-images.githubusercontent.com/51831786/212578789-247dbc9a-e66c-46c8-aa62-6e4a000256bc.png)
 
 
 ## Example 4: Single process composed, multiple subscribers, no type adaptation, intra-process enabled
@@ -89,7 +89,7 @@ ros2 launch rs_type_adapter_example image_multiple_type_adapt.py
 
 When we run this example, we can see that the usage is around ~19% CPU, just like in the Example 3, to send and receive the data within the process. This is happening because all the subscribers are using the exact same reference of the image container which allow us to reduce the computational cost since there are not multiple copies being created, so this means that if we keep adding subscribers to this same topic, the CPU usage will stay the same as long as the subscribers doesn't need to modify the image.
 
-![image](https://user-images.githubusercontent.com/51831786/208497963-c9067f6e-638c-48a6-a166-748326adc840.png)
+![image](https://user-images.githubusercontent.com/51831786/212578902-6284b8fb-8772-47aa-97a4-84dbc3ffb87d.png)
 
 
 **Note**: There are other combinations possible between using type adaptation, intra-process-comm, separate/joint processes and multiple/single subscribers that were not taking into consideration for this examples. The reason behind this is that the examples created were only looking after showing the potential of using type adaptation and created the examples with the appropiate conditions to exploit that potential. 
