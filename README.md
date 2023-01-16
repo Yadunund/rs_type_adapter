@@ -30,7 +30,7 @@ For every image that is transmitted, roughly the following steps happen:
 4.  The RMW layer on the subscriber receives the data via UDP over localhost, deserializes the data, and delivers it to the callback.
 
 As can be seen, there is a lot of serializing, deserializing, and copying of data going on to deliver the data from one process to the next.
-The result of this example on the setup described above is that the publisher takes ~30% CPU to deliver the data, while the subscriber takes ~10% to receive the data.
+The result of this example on the setup described above is that the publisher takes ~33% CPU to deliver the data, while the subscriber takes ~10% to receive the data.
 
 ![image](https://user-images.githubusercontent.com/51831786/208497009-1186e015-6a5f-495d-8d63-5236d5926f34.png)
 
@@ -59,7 +59,7 @@ This example can be run with the following launch file:
 ros2 launch rs_type_adapter_example image_type_adapt.py
 ```
 
-When we run this example, it takes ~22% CPU to send and receive the data within the process.
+When we run this example, it takes ~19% CPU to send and receive the data within the process.
 
 We can see that the improvement is not something that relevant between the use of type adaptation and just using the intra-process communication. However, let's take a look at what happens when there is not just one subscriber but multiple.
 
@@ -87,7 +87,7 @@ This example can be run with the following launch file:
 ros2 launch rs_type_adapter_example image_multiple_type_adapt.py
 ```
 
-When we run this example, we can see that the usage is around ~22% CPU, just like in the Example 3, to send and receive the data within the process. This is happening because all the subscribers are using the exact same reference of the image container which allow us to reduce the computational cost since there are not multiple copies being created, so this means that if we keep adding subscribers to this same topic, the CPU usage will stay the same as long as the subscribers doesn't need to modify the image.
+When we run this example, we can see that the usage is around ~19% CPU, just like in the Example 3, to send and receive the data within the process. This is happening because all the subscribers are using the exact same reference of the image container which allow us to reduce the computational cost since there are not multiple copies being created, so this means that if we keep adding subscribers to this same topic, the CPU usage will stay the same as long as the subscribers doesn't need to modify the image.
 
 ![image](https://user-images.githubusercontent.com/51831786/208497963-c9067f6e-638c-48a6-a166-748326adc840.png)
 
