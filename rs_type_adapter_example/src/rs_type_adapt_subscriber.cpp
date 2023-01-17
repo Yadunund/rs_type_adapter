@@ -26,13 +26,22 @@ namespace rs_type_adapt_example
 RsTypeAdaptIntraSub::RsTypeAdaptIntraSub(rclcpp::NodeOptions options)
 : rclcpp::Node("image_sub_type_adapt_intra", options.use_intra_process_comms(true))
 {
-  auto callback =
-    [this](std::shared_ptr<const cv_bridge::ROSCvMatContainer> msg) -> void
+  sub_ = create_subscription<cv_bridge::ROSCvMatContainer>(
+    "color/image_raw",
+    10,
+    [this](const cv_bridge::ROSCvMatContainer& container) -> void
     {
-      RCLCPP_INFO(this->get_logger(), "Received image with address: 0x%" PRIXPTR "\n", reinterpret_cast<std::uintptr_t>(msg.get()));
-    };
-
-  sub_ = create_subscription<cv_bridge::ROSCvMatContainer>("color/image_raw", 10, callback);
+      const cv::Mat& mat = container.cv_mat();
+      const auto& publish_time = rclcpp::Time(container.header().stamp);
+      const auto now = this->get_clock()->now();
+      const double latency = (now - publish_time).seconds();
+      
+      RCLCPP_INFO(
+        this->get_logger(),
+        "Type adapter sub accessed! glass-to-glass latency: %.6f seconds", latency      
+      );
+      // RCLCPP_INFO(this->get_logger(), "Received image with address: 0x%" PRIXPTR "\n", reinterpret_cast<std::uintptr_t>(msg.get()));
+    });
 }
 
 RsTypeAdaptIntraSub::~RsTypeAdaptIntraSub(){}
@@ -40,4 +49,3 @@ RsTypeAdaptIntraSub::~RsTypeAdaptIntraSub(){}
 }  // namespace rs_type_adapt_example
 
 RCLCPP_COMPONENTS_REGISTER_NODE(rs_type_adapt_example::RsTypeAdaptIntraSub)
-

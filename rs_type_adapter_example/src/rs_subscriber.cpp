@@ -18,6 +18,8 @@
 #include "rclcpp_components/register_node_macro.hpp"
 #include "sensor_msgs/msg/image.hpp"
 
+#include <cv_bridge/cv_bridge.hpp>
+
 namespace rs_type_adapt_example
 {
 
@@ -25,10 +27,20 @@ RsIntraSub::RsIntraSub(rclcpp::NodeOptions options)
 : rclcpp::Node("image_sub_intra")
 {
   auto callback =
-    [this](std::unique_ptr<sensor_msgs::msg::Image> msg) -> void
+    [this](std::shared_ptr<const sensor_msgs::msg::Image> msg) -> void
     {
-      (void)msg;
-      RCLCPP_INFO(this->get_logger(), "Image received");
+      // Get CvImage
+      const auto cv_image = cv_bridge::toCvShare(msg);
+      const cv::Mat& mat = cv_image->image;
+      
+      const auto& publish_time = rclcpp::Time(msg->header.stamp);
+      const auto now = this->get_clock()->now();
+      const double latency = (now - publish_time).seconds();
+      
+      RCLCPP_INFO(
+        this->get_logger(),
+        "Without type adapter sub: glass-to-glass latency: %.6f seconds", latency      
+      );
     };
   if (options.use_intra_process_comms()){
     sub_ = create_subscription<sensor_msgs::msg::Image>("color/image_raw", 10, callback);
@@ -42,4 +54,3 @@ RsIntraSub::~RsIntraSub(){}
 }  // namespace rs_type_adapt_example
 
 RCLCPP_COMPONENTS_REGISTER_NODE(rs_type_adapt_example::RsIntraSub)
-
