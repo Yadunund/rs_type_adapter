@@ -24,7 +24,7 @@ namespace rs_type_adapt_example
 {
 
 RsTypeAdaptIntraSub::RsTypeAdaptIntraSub(const rclcpp::NodeOptions& options)
-: rclcpp::Node("image_sub_type_adapt_intra")
+: rclcpp::Node("image_sub_type_adapt_intra", options)
 {
   sub_ = create_subscription<cv_bridge::ROSCvMatContainer>(
     "color/image_raw",
