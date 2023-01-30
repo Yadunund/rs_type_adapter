@@ -27,7 +27,7 @@ class RsIntraSub : public rclcpp::Node
 {
 public:
   CV_BRIDGE_PUBLIC
-  explicit RsIntraSub(rclcpp::NodeOptions options);
+  explicit RsIntraSub(const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
 
   virtual ~RsIntraSub();
 

@@ -32,7 +32,7 @@ class RsTypeAdaptIntraSub : public rclcpp::Node
 {
 public:
   CV_BRIDGE_PUBLIC
-  explicit RsTypeAdaptIntraSub(rclcpp::NodeOptions options);
+  explicit RsTypeAdaptIntraSub(const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
 
   virtual ~RsTypeAdaptIntraSub();
 

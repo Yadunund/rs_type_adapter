@@ -23,8 +23,8 @@
 namespace rs_type_adapt_example
 {
 
-RsIntraSub::RsIntraSub(rclcpp::NodeOptions options)
-: rclcpp::Node("image_sub_intra")
+RsIntraSub::RsIntraSub(const rclcpp::NodeOptions& options)
+: rclcpp::Node("image_sub_intra", options)
 {
   auto callback =
     [this](std::shared_ptr<const sensor_msgs::msg::Image> msg) -> void
